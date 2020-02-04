@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 
-import {getAllProjects, createProject, getOneProject, updateProject,destroyProject} from '../app/controllers/ProjectController'
+import {getAllProjects, createProject, getOneProject, updateProject,destroyProject} from '../app/controllers/ProjectController';
 
 router.get('/', getAllProjects);
 router.post('/', createProject);

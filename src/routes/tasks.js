@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-import {getAllTask, createTask, getOneTask, updateTask,destroyTask, getTaskByProject} from '../app/controllers/TaskController'
+import {getAllTask, createTask, getOneTask, updateTask,destroyTask, getTaskByProject} from '../app/controllers/TaskController';
 
 router.get('/', getAllTask);
 router.post('/', createTask);
