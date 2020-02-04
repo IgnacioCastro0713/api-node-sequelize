@@ -20,6 +20,7 @@ module.exports = {
         references: {
           model: {
             tableName: 'projects',
+            schema: 'schema'
           },
           key: 'id'
         },
