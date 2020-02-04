@@ -31,6 +31,7 @@ export const createProject = async (req, res) => {
 	return res.json({project})
 
   } catch (e) {
+	console.log(e);
 	res.status(500).json({
 	  message: 'Something goes wrong',
 	  project: {}
