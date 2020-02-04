@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
-    "@babel/register": "^7.8.3",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "mysql2": "^2.1.0",
@@ -26,6 +25,7 @@
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3",
     "nodemon": "^2.0.2"
   }
 }
