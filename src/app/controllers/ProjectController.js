@@ -1,4 +1,4 @@
-import { Project } from '../models/';
+import { Project, User } from '../models/';
 
 export const getAllProjects = async (req, res) => {
 
@@ -18,14 +18,15 @@ export const getAllProjects = async (req, res) => {
 
 export const createProject = async (req, res) => {
 
-  const {name, priority, description, delivery_date} = req.body;
+  const {name, priority, description, delivery_date, user_id} = req.body;
 
   try {
 	let project = await Project.create({
 	  'name': name,
 	  'priority': priority,
 	  'description': description,
-	  'delivery_date': delivery_date
+	  'delivery_date': delivery_date,
+	  'user_id': user_id
 	});
 
 	return res.json({project})
@@ -45,7 +46,10 @@ export const getOneProject = async (req, res) => {
 
   try {
 	let project = await Project.findOne({
-	  where: {id}
+	  where: {id},
+	  include: [
+		{model: User, attributes: ['name']}
+	  ]
 	});
 
 	return res.json({project});

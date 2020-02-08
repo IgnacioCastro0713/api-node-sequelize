@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "express-list-endpoints": "^4.0.1",
     "express-session": "^1.17.0",
     "morgan": "^1.9.1",
     "mysql2": "^2.1.0",
