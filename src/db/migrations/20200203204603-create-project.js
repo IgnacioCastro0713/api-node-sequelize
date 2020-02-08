@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       name: {
         allowNull: false,
@@ -22,6 +22,16 @@ module.exports = {
       delivery_date: {
         allowNull: false,
         type:Sequelize.DATE
+      },
+      user_id: {
+        type: Sequelize.INTEGER.UNSIGNED.ZEROFILL,
+        field: 'user_id',
+        references: {
+          model: {
+            tableName: 'users',
+            schema: 'schema'
+          }
+        }
       },
       createdAt: {
         allowNull: false,

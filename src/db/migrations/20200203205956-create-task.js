@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       name: {
         type: Sequelize.STRING
@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       project_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED.ZEROFILL,
         field:'project_id',
         references: {
           model: {
