@@ -8,10 +8,14 @@ import ProjectRoutes from './routes/projects';
 import TaskRoutes from './routes/tasks';
 import cors from 'cors';
 import {errorNotFoundMiddleware} from './app/middlewares/errors'
-import passport from "./config/passport";
+import passport from './config/passport';
+import {config} from 'dotenv';
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// env config
+config();
 
 // port server
 app.set('port', port);

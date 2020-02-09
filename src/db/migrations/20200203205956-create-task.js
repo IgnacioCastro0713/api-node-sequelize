@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER(11)
+        type: Sequelize.INTEGER
       },
       name: {
         type: Sequelize.STRING
@@ -18,10 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         field:'project_id',
         references: {
-          model: {
-            tableName: 'projects',
-            schema: 'schema'
-          },
+          model: 'Projects',
           key: 'id'
         },
         allowNull: false

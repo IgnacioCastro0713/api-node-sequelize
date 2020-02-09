@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Project.belongsTo(models.User, {
-      foreignKey: 'user_id', sourceKey: 'id'
+      foreignKey: 'user_id'
     });
   };
   return Project;

@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER(11)
+        type: Sequelize.INTEGER
       },
       name: {
         allowNull: false,
@@ -25,13 +25,11 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        field: 'user_id',
         references: {
-          model: {
-            tableName: 'users',
-            schema: 'schema'
-          }
-        }
+          model: 'Users',
+          key:'id'
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

@@ -9,6 +9,7 @@ export const getAllProjects = async (req, res) => {
 
   } catch (e) {
 	res.status(500).json({
+
 	  message: 'Something goes wrong',
 	  project: {}
 	})
