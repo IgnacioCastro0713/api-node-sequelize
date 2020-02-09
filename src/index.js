@@ -12,4 +12,4 @@ async function main() {
     })
 }
 
-main(); // url: http://localhost:4000
+main(); // url: http://localhost:3000

@@ -6,7 +6,7 @@ import AuthRoutes from './routes/auth'
 import UserRoutes from './routes/user'
 import ProjectRoutes from './routes/projects';
 import TaskRoutes from './routes/tasks';
-
+import cors from 'cors';
 import {errorNotFoundMiddleware} from './app/middlewares/errors'
 
 const app = express();
@@ -16,6 +16,7 @@ const port = process.env.PORT || 3000;
 app.set('port', port);
 
 // middleware's
+app.use(cors());
 app.use(morgan('dev'));
 app.use(json());
 

@@ -1,10 +1,10 @@
 import { Router } from 'express';
+import { getAllUsers, createUser, getOneUser, updateUser, destroyUser } from '../app/controllers/UserController';
+import passport from '../config/passport';
 
 const router = Router();
 
-import { getAllUsers, createUser, getOneUser, updateUser, destroyUser } from '../app/controllers/UserController'
-
-router.get('/', getAllUsers);
+router.get('/', passport.authenticate('bearer', { session: false }) ,getAllUsers);
 router.post('/', createUser);
 router.get('/:id', getOneUser);
 router.put('/:id', updateUser);

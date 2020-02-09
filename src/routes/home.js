@@ -1,8 +1,7 @@
 import { Router } from 'express';
+import { home } from '../app/controllers/HomeController'
 
 const router = Router();
-
-import { home } from '../app/controllers/HomeController'
 
 router.get('/' , home);
 
