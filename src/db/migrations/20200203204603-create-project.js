@@ -24,7 +24,7 @@ module.exports = {
         type:Sequelize.DATE
       },
       user_id: {
-        type: Sequelize.INTEGER.UNSIGNED.ZEROFILL,
+        type: Sequelize.INTEGER,
         field: 'user_id',
         references: {
           model: {

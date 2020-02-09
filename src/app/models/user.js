@@ -6,12 +6,22 @@ module.exports = (sequelize, DataTypes) => {
 	name: DataTypes.STRING,
 	email: {
 	  type: DataTypes.STRING,
+	  unique: {
+		args: true,
+		msg: 'Email address already in use!'
+	  },
 	  validate: {
-		isEmail: true
+		isEmail: {
+		  msg: "Must be a valid email address"
+		}
 	  }
 	},
 	password: {
-	  type: DataTypes.STRING
+	  type: DataTypes.STRING,
+	  set(val) {
+	    let password = bcrypt.hashSync(val, bcrypt.genSaltSync(10), null);
+	    this.setDataValue('password', password)
+	  }
 	}
   }, {});
   User.associate = function (models) {
@@ -24,14 +34,6 @@ module.exports = (sequelize, DataTypes) => {
   User.validPassword = (password, user) => {
 	return bcrypt.compareSync(password, user.password);
   };
-
-  User.beforeCreate(user => {
-	user.password = bcrypt.hashSync(
-		user.password,
-		bcrypt.genSaltSync(10),
-		null
-	);
-  });
 
   return User;
 };

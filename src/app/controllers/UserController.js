@@ -8,6 +8,7 @@ export const getAllUsers = async (req, res) => {
 	return res.json({users});
   } catch (e) {
 	res.status(500).json({
+	  error: e.errors,
 	  message: 'Something goes wrong',
 	  users: {}
 	})
@@ -27,6 +28,7 @@ export const createUser = async (req, res) => {
 
   } catch (e) {
 	res.status(500).json({
+	  error: e.errors,
 	  message: 'Something goes wrong',
 	  user: {}
 	})
@@ -50,6 +52,7 @@ export const getOneUser = async (req, res) => {
 
   } catch (e) {
 	res.status(500).json({
+	  error: e.errors,
 	  message: 'Something goes wrong',
 	  user: {}
 	})
@@ -80,6 +83,7 @@ export const updateUser = async (req, res) => {
 	return res.json({ message: 'User Updated Successfully', user } );
   } catch (e) {
 	res.status(500).json({
+	  error: e.errors,
 	  message: 'Something goes wrong',
 	  user: {}
 	})
@@ -104,6 +108,7 @@ export const destroyUser = async (req, res) => {
 
   } catch (e) {
 	res.status(500).json({
+	  error: e.errors,
 	  message: 'Something goes wrong',
 	  project: {}
 	})

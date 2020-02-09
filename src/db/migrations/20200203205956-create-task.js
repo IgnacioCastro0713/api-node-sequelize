@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       project_id: {
-        type: Sequelize.INTEGER.UNSIGNED.ZEROFILL,
+        type: Sequelize.INTEGER,
         field:'project_id',
         references: {
           model: {
