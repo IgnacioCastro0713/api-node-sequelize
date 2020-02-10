@@ -5,3 +5,4 @@ dist/
 
 package-lock.json
 node-sequalize-express-mysql-postgre.iml
+.env

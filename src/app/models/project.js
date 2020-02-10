@@ -1,11 +1,21 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Project = sequelize.define('Project', {
-    name: DataTypes.STRING,
-    priority: DataTypes.INTEGER,
-    description: DataTypes.TEXT,
-    delivery_date: DataTypes.DATE,
-    user_id: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING
+    },
+    priority: {
+      type: DataTypes.INTEGER
+    },
+    description: {
+      type: DataTypes.TEXT
+    },
+    delivery_date: {
+      type: DataTypes.DATE
+    },
+    user_id: {
+      type: DataTypes.INTEGER
+    }
   }, {});
   Project.associate = function(models) {
     Project.hasMany(models.Task, {

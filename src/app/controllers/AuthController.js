@@ -42,6 +42,8 @@ export const register = async (req, res) => {
 	  'name': name, 'email': email, 'password': password
 	});
 
+	delete user.password;
+
 	return res.json({user});
 
   } catch (e) {

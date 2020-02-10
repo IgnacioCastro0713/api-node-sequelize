@@ -5,7 +5,7 @@ import {multiCatchError} from '../../utils/helpers'
 export const getAllUsers = async (req, res) => {
   try {
 
-	let users = await User.findAll();
+	let users = await User.scope('withOutPassword').findAll();
 
 	return res.json({users});
   } catch (e) {
@@ -37,7 +37,7 @@ export const getOneUser = async (req, res) => {
   const {id} = req.params;
 
   try {
-	let user = await User.findOne({
+	let user = await User.scope('withOutPassword').findOne({
 	  where: {id},
 	  include: [
 		{model: Project, attributes: ['name']}
@@ -57,7 +57,7 @@ export const updateUser = async (req, res) => {
   const {id} = req.params;
   const {name, email, password} = req.body;
 
-  let user = await User.findOne({
+  let user = await User.scope('withOutPassword').findOne({
 	where: {id}
   });
 
