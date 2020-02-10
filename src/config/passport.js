@@ -7,7 +7,7 @@ const BearerStrategy = PassportHttp.Strategy;
 passport.use(new BearerStrategy(
 	async (token, done) => {
 	  try {
-		const decoded = await jwt.verify(token, process.env.JWT_KEY);
+		const decoded = await jwt.verify(token, process.env.JWT_KEY || 'secret');
 		return done(null, decoded)
 	  } catch (err) {
 	    done(err);
