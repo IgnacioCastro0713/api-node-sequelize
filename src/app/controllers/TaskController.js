@@ -1,4 +1,5 @@
 import { Task, Project } from '../models/';
+import {multiCatchError} from "../../utils/helpers";
 
 export const getAllTask = async (req, res) => {
 
@@ -12,10 +13,8 @@ export const getAllTask = async (req, res) => {
 	return res.json({tasks})
 
   } catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  task: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 
@@ -34,10 +33,8 @@ export const createTask = async (req, res) => {
 	return res.json({task})
 
   }catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  task: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 
@@ -53,10 +50,8 @@ export const getOneTask = async (req, res) => {
 	return res.json({task});
 
   } catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  task: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 
@@ -89,10 +84,8 @@ export const updateTask = async (req, res) => {
 
 	return res.json({ message: 'Task Updated Successfully', Task})
   }catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  task: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 
@@ -109,10 +102,8 @@ export const destroyTask = async (req, res) => {
 	  count: rowCount
 	})
   } catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  task: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 
@@ -135,10 +126,8 @@ export const getTaskByProject = async (req, res) => {
 	return res.json({tasks});
 
   } catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  task: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 
 };

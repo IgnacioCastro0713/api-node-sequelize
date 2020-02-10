@@ -1,5 +1,6 @@
 import {User} from '../models';
 import jwt from 'jsonwebtoken';
+import {multiCatchError} from "../../utils/helpers";
 
 export const login = async (req, res) => {
 
@@ -23,7 +24,7 @@ export const login = async (req, res) => {
 	});
   }
 
-  let token = jwt.sign({user}, process.env.JWT_KEY, { expiresIn: '2h' });
+  let token = await jwt.sign({user}, process.env.JWT_KEY, { expiresIn: '2h' });
 
   res.json({
 	user,
@@ -44,10 +45,8 @@ export const register = async (req, res) => {
 	return res.json({user});
 
   } catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  user: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 

@@ -1,4 +1,6 @@
-import { User, Project } from '../models/';
+import {User, Project} from '../models/';
+
+import {multiCatchError} from '../../utils/helpers'
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -7,42 +9,36 @@ export const getAllUsers = async (req, res) => {
 
 	return res.json({users});
   } catch (e) {
-	res.status(500).json({
-	  error: e.errors,
-	  message: 'Something goes wrong',
-	  users: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 
 export const createUser = async (req, res) => {
 
-  const { name, email, password } = req.body;
+  const {name, email, password} = req.body;
 
   try {
-    let user = await User.create({
+	let user = await User.create({
 	  name, email, password
 	});
 
-    return res.json({user});
+	return res.json({user});
 
   } catch (e) {
-	res.status(500).json({
-	  error: e.errors,
-	  message: 'Something goes wrong',
-	  user: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 
 };
 
 export const getOneUser = async (req, res) => {
 
-  const { id } =  req.params;
+  const {id} = req.params;
 
   try {
 	let user = await User.findOne({
-	  where: { id },
+	  where: {id},
 	  include: [
 		{model: Project, attributes: ['name']}
 	  ]
@@ -51,21 +47,18 @@ export const getOneUser = async (req, res) => {
 	return res.json({user});
 
   } catch (e) {
-	res.status(500).json({
-	  error: e.errors,
-	  message: 'Something goes wrong',
-	  user: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 
 export const updateUser = async (req, res) => {
 
-  const { id } =  req.params;
-  const { name, email, password } = req.body;
+  const {id} = req.params;
+  const {name, email, password} = req.body;
 
   let user = await User.findOne({
-	where:{id}
+	where: {id}
   });
 
   if (!user) {
@@ -80,24 +73,21 @@ export const updateUser = async (req, res) => {
 	  name, email, password
 	});
 
-	return res.json({ message: 'User Updated Successfully', user } );
+	return res.json({message: 'User Updated Successfully', user});
   } catch (e) {
-	res.status(500).json({
-	  error: e.errors,
-	  message: 'Something goes wrong',
-	  user: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 
 };
 
 export const destroyUser = async (req, res) => {
 
-  const { id } =  req.params;
+  const {id} = req.params;
 
   try {
 
-	let rowCount =  await User.destroy({
+	let rowCount = await User.destroy({
 	  where: {id}
 	});
 
@@ -107,10 +97,7 @@ export const destroyUser = async (req, res) => {
 	});
 
   } catch (e) {
-	res.status(500).json({
-	  error: e.errors,
-	  message: 'Something goes wrong',
-	  project: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };

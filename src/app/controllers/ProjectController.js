@@ -1,4 +1,5 @@
 import { Project, User } from '../models/';
+import {multiCatchError} from "../../utils/helpers";
 
 export const getAllProjects = async (req, res) => {
 
@@ -8,11 +9,8 @@ export const getAllProjects = async (req, res) => {
 	return res.json({projects})
 
   } catch (e) {
-	res.status(500).json({
-
-	  message: 'Something goes wrong',
-	  project: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 
 };
@@ -33,10 +31,8 @@ export const createProject = async (req, res) => {
 	return res.json({project})
 
   } catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  project: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 
 };
@@ -56,10 +52,8 @@ export const getOneProject = async (req, res) => {
 	return res.json({project});
 
   } catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  project: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 
 };
@@ -94,10 +88,8 @@ export const updateProject = async (req, res) => {
 
 	return res.json({ message: 'Project Updated Successfully', project})
   }catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  project: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 
 
@@ -117,10 +109,8 @@ export const destroyProject = async (req, res) => {
 	  count: rowCount
 	})
   } catch (e) {
-	res.status(500).json({
-	  message: 'Something goes wrong',
-	  project: {}
-	})
+	let { code, message, errors } = await multiCatchError(e);
+	res.status(code).json({message, errors})
   }
 };
 
