@@ -21,13 +21,13 @@ module.exports = {
       },
       delivery_date: {
         allowNull: false,
-        type:Sequelize.DATE
+        type: Sequelize.DATE
       },
       user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
-          key:'id'
+          key: 'id'
         },
         allowNull: false
       },
@@ -43,6 +43,6 @@ module.exports = {
 
   },
   down: (queryInterface, Sequelize) => {
-	return queryInterface.dropTable('Projects');
+    return queryInterface.dropTable('Projects');
   }
 };

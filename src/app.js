@@ -1,4 +1,4 @@
-import express, { json } from 'express'
+import express, {json} from 'express'
 import morgan from 'morgan';
 
 import HomeRoutes from './routes/home';
@@ -29,9 +29,9 @@ app.use(json());
 // routes
 app.use('/api', HomeRoutes);
 app.use('/api/auth', AuthRoutes);
-app.use('/api/users', passport.authenticate('bearer', { session: false }),UserRoutes);
-app.use('/api/projects', passport.authenticate('bearer', { session: false }), ProjectRoutes);
-app.use('/api/tasks', passport.authenticate('bearer', { session: false }), TaskRoutes);
+app.use('/api/users', passport.authenticate('bearer', {session: false}), UserRoutes);
+app.use('/api/projects', passport.authenticate('bearer', {session: false}), ProjectRoutes);
+app.use('/api/tasks', passport.authenticate('bearer', {session: false}), TaskRoutes);
 app.use(errorNotFoundMiddleware);
 
 

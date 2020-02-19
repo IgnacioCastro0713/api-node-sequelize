@@ -12,11 +12,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       done: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       project_id: {
         type: Sequelize.INTEGER,
-        field:'project_id',
+        field: 'project_id',
         references: {
           model: 'Projects',
           key: 'id'
