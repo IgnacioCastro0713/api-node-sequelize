@@ -1,9 +1,10 @@
 import {User} from '../models';
 import jwt from 'jsonwebtoken';
 import {multiCatchError} from "../../utils/helpers";
-import {loginSchema} from '../validations/auth/AuthSchema';
+import {loginSchema, registerSchema} from '../validations/auth/AuthSchema';
 
 export const login = async (req, res) => {
+
 
   try {
     const {email, password} = await loginSchema.validateAsync(req.body, {abortEarly: false});
@@ -26,7 +27,7 @@ export const login = async (req, res) => {
     });
 
   } catch (err) {
-    let { code, message, errors } = await multiCatchError(err);
+    let {code, message, errors} = await multiCatchError(err);
     res.status(code).json({message, errors});
   }
 
@@ -34,17 +35,15 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
 
-  const {name, email, password} = req.body;
 
   try {
-    let user = await User.create({
-      'name': name, 'email': email, 'password': password
-    });
+    const {name, email, password} = await registerSchema.validateAsync(req.body, {abortEarly: false});
+
+    let user = await User.create({name, email, password});
 
     delete user.password;
 
     return res.json({user});
-
   } catch (e) {
     let {code, message, errors} = await multiCatchError(e);
     res.status(code).json({message, errors})

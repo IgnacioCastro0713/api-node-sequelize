@@ -24,14 +24,27 @@ export const loginSchema = Joi.object({
 export const registerSchema = Joi.object({
   name: Joi
     .string()
-    .required(),
+    .required()
+    .messages({
+      'string.base': `nombre debe se tipo texto`,
+      'any.required': `nombre es requerido`,
+    }),
 
   email: Joi
     .string()
     .email()
-    .required(),
+    .required()
+    .messages({
+      'string.base': `correo debe se tipo texto`,
+      'string.email': `correo debe ser un correo valido`,
+      'any.required': `correo es requerido`,
+    }),
 
   password: Joi
     .string()
     .required()
+    .messages({
+      'string.base': `contraseña debe se tipo texto`,
+      'any.required': `contraseña es requerida`,
+    })
 });
