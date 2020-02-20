@@ -4,16 +4,25 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       validate: {
-        msg: 'Name field is required'
+        notEmpty: {
+          msg: 'Name field is required'
+        }
       }
     },
     done: {
       type: DataTypes.BOOLEAN,
+      validate: {
+        notEmpty: {
+          msg: 'done field is required'
+        }
+      }
     },
     project_id: {
       type: DataTypes.INTEGER,
       validate: {
-        msg: 'project id is required'
+        notEmpty: {
+          msg: 'project id is required'
+        }
       }
     }
   }, {});

@@ -1,5 +1,6 @@
 import {Project, User} from '../models/';
 import {multiCatchError} from "../../utils/helpers";
+import {createSchema, updateSchema} from '../validations/project/ProjectSchema';
 
 export const getAllProjects = async (req, res) => {
 
@@ -17,19 +18,11 @@ export const getAllProjects = async (req, res) => {
 
 export const createProject = async (req, res) => {
 
-  const {name, priority, description, delivery_date, user_id} = req.body;
-
   try {
-    let project = await Project.create({
-      'name': name,
-      'priority': priority,
-      'description': description,
-      'delivery_date': delivery_date,
-      'user_id': user_id
-    });
+    const {name, priority, description, delivery_date, user_id} = await createSchema.validateAsync(req.body, {abortEarly: false});
+    let project = await Project.create({ name, priority, description, delivery_date, user_id });
 
     return res.json({project})
-
   } catch (e) {
     let {code, message, errors} = await multiCatchError(e);
     res.status(code).json({message, errors})
@@ -61,7 +54,6 @@ export const getOneProject = async (req, res) => {
 export const updateProject = async (req, res) => {
 
   const {id} = req.params;
-  const {name, priority, description, delivery_date} = req.body;
 
   let project = await Project.findOne({
     where: {id}
@@ -75,12 +67,8 @@ export const updateProject = async (req, res) => {
   }
 
   try {
-    await Project.update({
-      'name': name,
-      'priority': priority,
-      'description': description,
-      'delivery_date': delivery_date
-    }, {
+    const {name, priority, description, delivery_date} = await updateSchema.validateAsync(req.body, {abortEarly: false});
+    await Project.update({ name, priority, description, delivery_date }, {
       where: {
         id
       }
