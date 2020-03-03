@@ -1,5 +1,6 @@
 import {Task, Project} from '../models/';
 import {multiCatchError} from "../../utils/helpers";
+import {createSchema, updateSchema} from '../validations/task/TaskSchema';
 
 export const getAllTask = async (req, res) => {
 
@@ -20,15 +21,11 @@ export const getAllTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
 
-  const {name, done, project_id} = req.body;
+  const {name, done, project_id} = await createSchema.validateAsync(req.body, {abortEarly: false});
 
   try {
 
-    let task = await Task.create({
-      'name': name,
-      'done': done,
-      'project_id': project_id
-    });
+    let task = await Task.create({ name, done, project_id });
 
     return res.json({task})
 
@@ -58,7 +55,7 @@ export const getOneTask = async (req, res) => {
 export const updateTask = async (req, res) => {
 
   const {id} = req.params;
-  const {name, done, project_id} = req.body;
+  const {name, done, project_id} = await updateSchema.validateAsync(req.body, {abortEarly: false});
 
   let task = await Task.findOne({
     where: {id}
@@ -72,11 +69,7 @@ export const updateTask = async (req, res) => {
   }
 
   try {
-    await Task.update({
-      'name': name,
-      'done': done,
-      'project_id': project_id
-    }, {
+    await Task.update({ name, done,project_id }, {
       where: {
         id
       }
