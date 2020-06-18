@@ -1,6 +1,6 @@
-import { Project, User } from '../models/';
+import { Project, Task } from '../models/';
 import { multiCatchError } from "../../utils/helpers";
-import { createSchema, updateSchema } from '../validations/project/ProjectSchema';
+import { createSchema, updateSchema } from '../validations/project';
 
 export const getAllProjects = async (req, res) => {
 
@@ -27,18 +27,17 @@ export const createProject = async (req, res) => {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })
   }
-
 };
 
 export const getOneProject = async (req, res) => {
 
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
     let project = await Project.findOne({
       where: { id },
       include: [
-        { model: User, attributes: ['name'] }
+        { model: Task, attributes: ['id', 'name', 'done'] },
       ]
     });
 
@@ -48,25 +47,20 @@ export const getOneProject = async (req, res) => {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })
   }
-
 };
 
 export const updateProject = async (req, res) => {
 
-  const { id } = req.params;
-
-  let project = await Project.findOne({
-    where: { id }
-  });
-
-  if (!project) {
-    return res.json({
-      message: 'This project does not exist',
-      project: {}
-    })
-  }
-
   try {
+
+    const { id } = req.params;
+
+    let project = await Project.findOne({ where: { id } });
+
+    if (!project) {
+      return res.json({ message: 'This project does not exist', project: {} });
+    }
+
     const { name, priority, description, delivery_date } = await updateSchema.validateAsync(req.body, { abortEarly: false });
     await Project.update({ name, priority, description, delivery_date }, {
       where: {
@@ -79,23 +73,16 @@ export const updateProject = async (req, res) => {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })
   }
-
-
 };
 
 export const destroyProject = async (req, res) => {
 
-  const { id } = req.params;
-
   try {
-    let rowCount = await Project.destroy({
-      where: { id }
-    });
+    const { id } = req.params;
 
-    return res.json({
-      message: 'Project Deleted Successfully',
-      count: rowCount
-    })
+    let rowCount = await Project.destroy({ where: { id } });
+
+    return res.json({ message: 'Project Deleted Successfully', count: rowCount })
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })

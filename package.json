@@ -7,7 +7,9 @@
     "dev": "nodemon src/index.js --exec babel-node",
     "build": "babel src --out-dir dist",
     "start": "node dist/index.js",
-    "sequelize:migrate": "npx sequelize-cli db:migrate"
+    "sequelize:migrate": "npx sequelize-cli db:migrate",
+    "sequelize:seeds": "npx sequelize-cli db:seed:all",
+    "sequelize:seeds:undo": "npx sequelize-cli db:seed:undo:all"
   },
   "author": "",
   "license": "ISC",
@@ -39,6 +41,7 @@
     "@babel/register": "^7.8.3",
     "@types/express": "^4.17.2",
     "@types/hapi": "^18.0.3",
+    "faker": "^4.1.0",
     "nodemon": "^2.0.2"
   }
 }

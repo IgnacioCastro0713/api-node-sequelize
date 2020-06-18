@@ -1,10 +1,9 @@
 import { Project, User } from '../models/';
 import { multiCatchError } from '../../utils/helpers'
-import { createSchema, updateSchema } from '../validations/user/UserSchema';
+import { createSchema, updateSchema } from '../validations/user';
 
 export const getAllUsers = async (req, res) => {
   try {
-
     let users = await User.scope('withOutPassword').findAll();
 
     return res.json({ users });
@@ -18,29 +17,23 @@ export const createUser = async (req, res) => {
 
   try {
     const { name, email, password } = await createSchema.validateAsync(req.body, { abortEarly: false });
-
-    let user = await User.create({
-      name, email, password
-    });
+    let user = await User.create({ name, email, password });
 
     return res.json({ user });
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })
   }
-
 };
 
 export const getOneUser = async (req, res) => {
 
-  const { id } = req.params;
 
   try {
+    const { id } = req.params;
     let user = await User.scope('withOutPassword').findOne({
       where: { id },
-      include: [
-        { model: Project, attributes: ['name'] }
-      ]
+      include: [{ model: Project, attributes: ['name'] }]
     });
 
     return res.json({ user });
@@ -68,7 +61,6 @@ export const updateUser = async (req, res) => {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })
   }
-
 };
 
 export const destroyUser = async (req, res) => {
@@ -77,11 +69,7 @@ export const destroyUser = async (req, res) => {
     const { id } = req.params;
     let rowCount = await User.destroy({ where: { id } });
 
-    return res.json({
-      message: 'User Deleted Successfully',
-      count: rowCount
-    });
-
+    return res.json({ message: 'User Deleted Successfully', count: rowCount });
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })
