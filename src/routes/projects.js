@@ -1,10 +1,10 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import {
-  getAllProjects,
   createProject,
+  destroyProject,
+  getAllProjects,
   getOneProject,
-  updateProject,
-  destroyProject
+  updateProject
 } from '../app/controllers/ProjectController';
 
 const router = Router();

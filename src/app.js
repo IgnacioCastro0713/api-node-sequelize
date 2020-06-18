@@ -1,4 +1,4 @@
-import express, {json} from 'express'
+import express, { json } from 'express'
 import morgan from 'morgan';
 
 import HomeRoutes from './routes/home';
@@ -7,9 +7,9 @@ import UserRoutes from './routes/user'
 import ProjectRoutes from './routes/projects';
 import TaskRoutes from './routes/tasks';
 import cors from 'cors';
-import {errorNotFoundMiddleware} from './app/middlewares/errors'
+import { errorNotFoundMiddleware } from './app/middlewares/errors'
 import passport from './config/passport';
-import {config} from 'dotenv';
+import { config } from 'dotenv';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -29,9 +29,9 @@ app.use(json());
 // routes
 app.use('/api', HomeRoutes);
 app.use('/api/auth', AuthRoutes);
-app.use('/api/users', passport.authenticate('bearer', {session: false}), UserRoutes);
-app.use('/api/projects', passport.authenticate('bearer', {session: false}), ProjectRoutes);
-app.use('/api/tasks', passport.authenticate('bearer', {session: false}), TaskRoutes);
+app.use('/api/users', passport.authenticate('bearer', { session: false }), UserRoutes);
+app.use('/api/projects', passport.authenticate('bearer', { session: false }), ProjectRoutes);
+app.use('/api/tasks', passport.authenticate('bearer', { session: false }), TaskRoutes);
 app.use(errorNotFoundMiddleware);
 
 

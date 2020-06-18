@@ -1,5 +1,5 @@
 'use strict';
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     scopes: {
       withOutPassword: {
-        attributes: {exclude: ['password']},
+        attributes: { exclude: ['password'] },
       }
     }
   });

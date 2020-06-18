@@ -1,4 +1,4 @@
-import {ValidationError} from "sequelize";
+import { ValidationError } from "sequelize";
 
 export function multiCatchError(e) {
   if (e instanceof ValidationError) {
