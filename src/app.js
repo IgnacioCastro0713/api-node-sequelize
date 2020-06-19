@@ -11,8 +11,8 @@ import { errorNotFoundMiddleware } from './app/middlewares/errors'
 import passport from './config/passport';
 import { config } from 'dotenv';
 
-import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./config/swagger.json";
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../swagger.json';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,9 +28,10 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(json());
 
+// swagger
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // routes
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api', HomeRoutes);
 app.use('/api/auth', AuthRoutes);
 app.use('/api/users', passport.authenticate('bearer', { session: false }), UserRoutes);
