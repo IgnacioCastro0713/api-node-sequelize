@@ -25,12 +25,25 @@
   "produces": [
     "application/json"
   ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
   "paths": {
     "/users": {
       "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
           "Users"
         ],
+        "summary": "Create new user in api rest",
         "description": "Create new user in api rest",
         "parameters": [
           {
@@ -55,6 +68,11 @@
         }
       },
       "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
           "Users"
         ],
@@ -80,6 +98,11 @@
         }
       ],
       "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
           "Users"
         ],
@@ -93,32 +116,13 @@
           }
         }
       },
-      "delete": {
-        "summary": "Delete user with given ID",
-        "tags": [
-          "Users"
-        ],
-        "responses": {
-          "200": {
-            "description": "User is deleted",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "User Deleted Successfully"
-                },
-                "count": {
-                  "type": "number",
-                  "example": 1
-                }
-              }
-            }
-          }
-        }
-      },
       "put": {
         "summary": "Update user with give ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
           "Users"
         ],
@@ -140,7 +144,99 @@
             }
           }
         }
+      },
+      "delete": {
+        "summary": "Delete user with given ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User is deleted",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User Deleted Successfully"
+                },
+                "count": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
+          }
+        }
       }
+    },
+    "/auth/login" : {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Authenticate user",
+        "description": "Authenticate user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Credentials",
+            "schema": {
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user authenticated",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Eduardo Jimenez"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiSWduYWNpbyIsImVtYWlsIjoiaWduYWNpb0BlbWFpbC5jb20ifSwiaWF0IjoxNTkyNTQyNzczLCJleHAiOjE1OTI1NDk5NzN9.g797rkJ_29-QoY-sCFzVvWrRRYZ0b7vuhvPwzt2a36c"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register" : {
+
     }
   },
   "definitions": {
@@ -166,6 +262,15 @@
     "Users": {
       "type": "array",
       "$ref": "#/definitions/User"
+    },
+    "UnauthorizedError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Access token is missing or invalid"
+        }
+      }
     }
   }
 }

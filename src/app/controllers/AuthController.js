@@ -17,11 +17,17 @@ export const login = async (req, res) => {
       return res.json({ message: 'Incorrect password' });
     }
 
+    delete user.dataValues.createdAt;
+    delete user.dataValues.updatedAt;
+    delete user.dataValues.password;
+
     let token = await jwt.sign({ user }, process.env.JWT_KEY, { expiresIn: '2h' });
 
     res.json({
-      user,
-      token
+      user: {
+        ...user.dataValues,
+        token
+      }
     });
 
   } catch (err) {
@@ -40,7 +46,7 @@ export const register = async (req, res) => {
       return res.json({ message: 'This user already exist', user: {} });
     }
 
-    delete user.password;
+    delete user.dataValues.password;
 
     return res.json({ user });
   } catch (e) {

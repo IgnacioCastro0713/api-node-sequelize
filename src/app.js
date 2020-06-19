@@ -30,7 +30,7 @@ app.use(json());
 
 
 // routes
-app.use('/api-rest-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api', HomeRoutes);
 app.use('/api/auth', AuthRoutes);
 app.use('/api/users', passport.authenticate('bearer', { session: false }), UserRoutes);
