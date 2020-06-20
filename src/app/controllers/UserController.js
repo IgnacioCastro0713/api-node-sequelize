@@ -35,6 +35,10 @@ export const getOneUser = async (req, res) => {
       include: [{ model: Project, attributes: ['name'] }]
     });
 
+    if (!user) {
+      return res.json({ message: 'This user does not exist', user: {} });
+    }
+
     return res.json({ user });
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);

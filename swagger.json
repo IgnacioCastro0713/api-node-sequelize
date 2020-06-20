@@ -144,6 +144,12 @@
             "schema": {
               "$ref": "#/definitions/User"
             }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
           }
         }
       },
@@ -162,7 +168,21 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Users"
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/Users"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
             }
           }
         }
@@ -192,7 +212,56 @@
           "200": {
             "description": "User is found",
             "schema": {
-              "$ref": "#/definitions/User"
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Robert"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "robert@email.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2020-06-20T03:14:56.104Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2020-06-20T03:14:56.104Z"
+                },
+                "projects": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/Project"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "schema": {
+              "properties": {
+                "message" : {
+                  "type": "string",
+                  "example": "This user does not exist"
+                },
+                "user": {
+                  "type": "object",
+                  "example": "{}"
+                }
+              }
             }
           }
         }
@@ -222,6 +291,27 @@
             "description": "User is updated",
             "schema": {
               "$ref": "#/definitions/User"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "schema": {
+              "properties": {
+                "message" : {
+                  "type": "string",
+                  "example": "This user does not exist"
+                },
+                "user": {
+                  "type": "object",
+                  "example": "{}"
+                }
+              }
             }
           }
         }
@@ -275,21 +365,68 @@
         "password"
       ],
       "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
         "name": {
-          "type": "string"
+          "type": "string",
+          "example": "Robert"
         },
         "email": {
           "type": "string",
+          "example": "robert@email.com",
           "uniqueItems": true
         },
-        "password": {
-          "type": "string"
+        "createdAt": {
+          "type": "string",
+          "example": "2020-06-20T03:14:56.104Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2020-06-20T03:14:56.104Z"
         }
       }
     },
     "Users": {
       "type": "array",
       "$ref": "#/definitions/User"
+    },
+    "Project": {
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "project 1"
+        },
+        "priority": {
+          "type": "integer",
+          "example": 2
+        },
+        "description": {
+          "type": "string",
+          "example": "this is a description"
+        },
+        "delivery_date": {
+          "type": "string",
+          "example": "2020-06-20T03:14:56.104Z"
+        },
+        "user_id": {
+          "type": "number",
+          "example": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2020-06-20T03:14:56.104Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2020-06-20T03:14:56.104Z"
+        }
+      }
     },
     "UnauthorizedError": {
       "type": "object",

@@ -24,10 +24,8 @@ export const login = async (req, res) => {
     let token = await jwt.sign({ user }, process.env.JWT_KEY, { expiresIn: '2h' });
 
     res.json({
-      user: {
-        ...user.dataValues,
-        token
-      }
+      ...user.dataValues,
+      token
     });
 
   } catch (err) {
