@@ -33,6 +33,86 @@
     }
   },
   "paths": {
+    "/auth/login" : {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Authenticate user",
+        "description": "Authenticate user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Credentials",
+            "schema": {
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user authenticated",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Eduardo Jimenez"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiSWduYWNpbyIsImVtYWlsIjoiaWduYWNpb0BlbWFpbC5jb20ifSwiaWF0IjoxNTkyNTQyNzczLCJleHAiOjE1OTI1NDk5NzN9.g797rkJ_29-QoY-sCFzVvWrRRYZ0b7vuhvPwzt2a36c"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register" : {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Register user",
+        "description": "register user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User information",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+
+    },
     "/users": {
       "post": {
         "security": [
@@ -43,8 +123,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "Create new user in api rest",
-        "description": "Create new user in api rest",
+        "summary": "Create new user",
+        "description": "Create new user in the api rest",
         "parameters": [
           {
             "name": "user",
@@ -76,7 +156,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get all users in api rest",
+        "summary": "Get all users",
+        "description": "Get all users from the api rest",
         "responses": {
           "200": {
             "description": "OK",
@@ -181,63 +262,10 @@
         }
       }
     },
-    "/auth/login" : {
-      "post": {
-        "tags": ["Authentication"],
-        "summary": "Authenticate user",
-        "description": "Authenticate user",
-        "parameters": [
-          {
-            "name": "user",
-            "in": "body",
-            "description": "Credentials",
-            "schema": {
-              "required": [
-                "email",
-                "password"
-              ],
-              "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "user authenticated",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "example": 1
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Eduardo Jimenez"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "email@email.com"
-                },
-                "token": {
-                  "type": "string",
-                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiSWduYWNpbyIsImVtYWlsIjoiaWduYWNpb0BlbWFpbC5jb20ifSwiaWF0IjoxNTkyNTQyNzczLCJleHAiOjE1OTI1NDk5NzN9.g797rkJ_29-QoY-sCFzVvWrRRYZ0b7vuhvPwzt2a36c"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/register" : {
-
-    }
+    "/projects": {},
+    "/projects/{id}": {},
+    "/tasks": {},
+    "/tasks/{id}": {}
   },
   "definitions": {
     "User": {

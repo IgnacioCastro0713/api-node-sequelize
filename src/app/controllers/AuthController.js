@@ -47,7 +47,6 @@ export const register = async (req, res) => {
     }
 
     delete user.dataValues.password;
-
     return res.json({ user });
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);

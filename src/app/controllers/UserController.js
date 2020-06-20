@@ -28,7 +28,6 @@ export const createUser = async (req, res) => {
 
 export const getOneUser = async (req, res) => {
 
-
   try {
     const { id } = req.params;
     let user = await User.scope('withOutPassword').findOne({
