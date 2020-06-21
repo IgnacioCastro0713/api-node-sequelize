@@ -1,7 +1,8 @@
 import Role from '../../helpers/role';
 
 export default (req, res, next) => {
-  if (+req.headers.admin === Role.ADMIN) {
+  const isAdmin = req.headers.admin === "true";
+  if (isAdmin === Role.ADMIN) {
     next();
   } else {
     return res.status(403).json({
