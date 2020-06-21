@@ -7,7 +7,7 @@ export const getAllProjects = async (req, res) => {
   try {
     const projects = await Project.findAll();
 
-    return res.json({ projects })
+    return res.json({ projects });
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })
@@ -41,7 +41,6 @@ export const getOneProject = async (req, res) => {
     });
 
     return res.json({ project });
-
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })

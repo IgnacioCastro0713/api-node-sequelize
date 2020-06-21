@@ -1,6 +1,6 @@
 import { ValidationError } from "sequelize";
 
-export function multiCatchError(e) {
+export const multiCatchError = e => {
   if (e instanceof ValidationError) {
     return {
       code: 400,
@@ -21,4 +21,4 @@ export function multiCatchError(e) {
     code: 500,
     message: 'Something goes wrong',
   }
-}
+};
