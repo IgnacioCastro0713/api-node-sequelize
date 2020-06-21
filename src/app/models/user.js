@@ -41,6 +41,9 @@ module.exports = (sequelize, DataTypes) => {
         let password = bcrypt.hashSync(val, bcrypt.genSaltSync(10), null);
         this.setDataValue('password', password)
       }
+    },
+    admin: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     scopes: {

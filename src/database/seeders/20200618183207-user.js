@@ -7,12 +7,14 @@ module.exports = {
       {
         name: 'Ignacio',
         email: 'ignacio@email.com',
-        password: bcrypt.hashSync('secret', bcrypt.genSaltSync(10), null)
+        password: bcrypt.hashSync('secret', bcrypt.genSaltSync(10), null),
+        admin: true
       },
       {
         name: 'Grizel',
         email: 'grizel@email.com',
-        password: bcrypt.hashSync('secret', bcrypt.genSaltSync(10), null)
+        password: bcrypt.hashSync('secret', bcrypt.genSaltSync(10), null),
+        admin: true
       },
       {
         name: 'Jorge',

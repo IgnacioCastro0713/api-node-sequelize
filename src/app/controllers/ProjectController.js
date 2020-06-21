@@ -8,7 +8,6 @@ export const getAllProjects = async (req, res) => {
     const projects = await Project.findAll();
 
     return res.json({ projects })
-
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);
     res.status(code).json({ message, errors })
@@ -54,8 +53,7 @@ export const updateProject = async (req, res) => {
   try {
 
     const { id } = req.params;
-
-    let project = await Project.findOne({ where: { id } });
+    const project = await Project.findOne({ where: { id } });
 
     if (!project) {
       return res.json({ message: 'This project does not exist', project: {} });
@@ -79,9 +77,7 @@ export const destroyProject = async (req, res) => {
 
   try {
     const { id } = req.params;
-
-    let rowCount = await Project.destroy({ where: { id } });
-
+    const rowCount = await Project.destroy({ where: { id } });
     return res.json({ message: 'Project Deleted Successfully', count: rowCount })
   } catch (e) {
     let { code, message, errors } = await multiCatchError(e);

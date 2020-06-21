@@ -16,8 +16,8 @@ export const getAllUsers = async (req, res) => {
 export const createUser = async (req, res) => {
 
   try {
-    const { name, email, password } = await createSchema.validateAsync(req.body, { abortEarly: false });
-    let user = await User.create({ name, email, password });
+    const { name, email, password, admin } = await createSchema.validateAsync(req.body, { abortEarly: false });
+    let user = await User.create({ name, email, password, admin });
 
     return res.json({ user });
   } catch (e) {
@@ -50,14 +50,14 @@ export const updateUser = async (req, res) => {
 
   try {
     const { id } = req.params;
-    const { name, email, password } = await updateSchema.validateAsync(req.body, { abortEarly: false });
+    const { name, email, password, admin } = await updateSchema.validateAsync(req.body, { abortEarly: false });
 
     let user = await User.scope('withOutPassword').findOne({ where: { id } });
 
     if (!user) {
       return res.json({ message: 'This user does not exist', user: {} });
     }
-    await User.update({ name, email, password });
+    await User.update({ name, email, password, admin });
 
     return res.json({ message: 'User Updated Successfully', user });
   } catch (e) {
