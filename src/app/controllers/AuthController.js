@@ -1,6 +1,6 @@
 import { User } from '../models';
 import jwt from 'jsonwebtoken';
-import { multiCatchError } from "../../utils/helpers";
+import { multiCatchError } from "../../helpers/muticatcherror";
 import { loginSchema, registerSchema } from '../validations/auth';
 
 export const login = async (req, res) => {

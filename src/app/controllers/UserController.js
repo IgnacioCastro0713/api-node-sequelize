@@ -1,5 +1,5 @@
 import { Project, User } from '../models/';
-import { multiCatchError } from '../../utils/helpers'
+import { multiCatchError } from '../../helpers/muticatcherror'
 import { createSchema, updateSchema } from '../validations/user';
 
 export const getAllUsers = async (req, res) => {

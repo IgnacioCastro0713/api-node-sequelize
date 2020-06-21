@@ -7,12 +7,12 @@ import UserRoutes from './routes/user'
 import ProjectRoutes from './routes/projects';
 import TaskRoutes from './routes/tasks';
 import cors from 'cors';
-import { errorNotFoundMiddleware } from './app/middlewares/errors'
-import passport from './config/passport';
+import passport from './app/middlewares/passportHttp';
 import { config } from 'dotenv';
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger.json';
+import { error404, errorHandler } from "./app/middlewares/errorHandlers";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,9 +24,9 @@ config();
 app.set('port', port);
 
 // middleware's
+app.use(json());
 app.use(cors());
 app.use(morgan('dev'));
-app.use(json());
 
 // swagger
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -37,7 +37,12 @@ app.use('/api/auth', AuthRoutes);
 app.use('/api/users', passport.authenticate('bearer', { session: false }), UserRoutes);
 app.use('/api/projects', passport.authenticate('bearer', { session: false }), ProjectRoutes);
 app.use('/api/tasks', passport.authenticate('bearer', { session: false }), TaskRoutes);
-app.use(errorNotFoundMiddleware);
+
+
+// handler errors
+app.use(error404);
+app.use(errorHandler);
+
 
 
 export default app;

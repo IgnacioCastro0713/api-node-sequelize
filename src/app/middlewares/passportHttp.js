@@ -10,9 +10,8 @@ passport.use(new BearerStrategy(
       const decoded = await jwt.verify(token, process.env.JWT_KEY);
       return done(null, decoded)
     } catch (err) {
-      done({ message: err });
+      return done({ message: err }, null);
     }
-    return done(null, false);
   }
 ));
 

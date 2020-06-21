@@ -1,5 +1,5 @@
 import { Project, Task } from '../models/';
-import { multiCatchError } from "../../utils/helpers";
+import { multiCatchError } from "../../helpers/muticatcherror";
 import { createSchema, updateSchema } from '../validations/project';
 
 export const getAllProjects = async (req, res) => {
