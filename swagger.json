@@ -77,6 +77,10 @@
                   "type": "string",
                   "example": "email@email.com"
                 },
+                "admin": {
+                  "type": "boolean",
+                  "example": true
+                },
                 "token": {
                   "type": "string",
                   "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiSWduYWNpbyIsImVtYWlsIjoiaWduYWNpb0BlbWFpbC5jb20ifSwiaWF0IjoxNTkyNTQyNzczLCJleHAiOjE1OTI1NDk5NzN9.g797rkJ_29-QoY-sCFzVvWrRRYZ0b7vuhvPwzt2a36c"
@@ -133,6 +137,13 @@
             "schema": {
               "$ref": "#/definitions/User"
             }
+          },
+          {
+            "in": "header",
+            "name": "admin",
+            "type": "string",
+            "description": "sends \"true\" or \"false\" if you are an administrator",
+            "required": true
           }
         ],
         "produces": [
@@ -164,6 +175,15 @@
         ],
         "summary": "Get all users",
         "description": "Get all users from the api rest",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "admin",
+            "type": "string",
+            "description": "sends \"true\" or \"false\" if you are an administrator",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -208,6 +228,15 @@
           "Users"
         ],
         "summary": "Get user with given ID",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "admin",
+            "type": "string",
+            "description": "sends \"true\" or \"false\" if you are an administrator",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "User is found",
@@ -284,6 +313,13 @@
             "schema": {
               "$ref": "#/definitions/User"
             }
+          },
+          {
+            "in": "header",
+            "name": "admin",
+            "type": "string",
+            "description": "sends \"true\" or \"false\" if you are an administrator",
+            "required": true
           }
         ],
         "responses": {
@@ -325,6 +361,15 @@
         ],
         "tags": [
           "Users"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "admin",
+            "type": "string",
+            "description": "sends \"true\" or \"false\" if you are an administrator",
+            "required": true
+          }
         ],
         "responses": {
           "200": {
